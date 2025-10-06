@@ -1,11 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meal Finder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
-    
+  <header>
+    <nav>
+      <div class="logo">🍽️ MEAL FINDER</div>
+      <div class="menu-icon" id="menuToggle">☰</div>
+    </nav>
+  </header>
+
+  <!-- Sidebar + Overlay -->
+  <div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>Categories</h3>
+    <span class="sidebar-close" id="sidebarClose">❌</span>
+  </div>
+  <div id="sidebarCategories"></div>
+</div>
+<div class="overlay" id="overlay"></div>
+
+
+  <main>
+    <section class="hero">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search recipes..." />
+            <button id="searchBtn" class="search-icon">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+      <h1>What are your favorite cuisines?</h1>
+      <p>PERSONALIZE YOUR EXPERIENCE</p>
+      
+    </section>
+    <section>
+      <h2>CATEGORIES</h2>
+      <div id="categoriesGrid" class="grid"></div>
+    </section>
+    <section>
+      <h2 id="mealsHeader" style="display:none;">MEALS</h2>
+      <div id="mealsGrid" class="grid"></div>
+    </section>
+    <section>
+      <div id="mealDetails"></div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryGrid = document.getElementById('categoriesGrid');
+      const sidebarCategories = document.getElementById('sidebarCategories');
+      const mealsGrid = document.getElementById('mealsGrid');
+      const mealDetails = document.getElementById('mealDetails');
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const mealsHeader = document.getElementById('mealsHeader');
+
+     const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const sidebarClose = document.getElementById('sidebarClose'); // sidebar close button
+
+// Toggle sidebar from header menu icon
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+  // Update header icon
+  menuToggle.textContent = sidebar.classList.contains('active') ? '❌' : '☰';
+});
+
+// Close sidebar by clicking overlay
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+  menuToggle.textContent = '☰';
+});
+
+// Close sidebar by clicking the ❌ inside sidebar
+sidebarClose.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+  menuToggle.textContent = '☰';
+});
+
+
+
+
+      // Fetch and display categories
+fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+  .then(res => res.json())
+  .then(data => {
+    categoryGrid.innerHTML = '';
+    sidebarCategories.innerHTML = '';
+
+    data.categories.forEach(cat => {
+      // --- Main Grid Card ---
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${cat.strCategoryThumb}" alt="${cat.strCategory}">
+        <div class="category-title">${cat.strCategory}</div>
+      `;
+      // On click, show meals of this category
+      card.addEventListener('click', () => {
+        getMealsByCategory(cat.strCategory);
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+      });
+      categoryGrid.appendChild(card);
+
+      // --- Sidebar List Item ---
+      const item = document.createElement('div');
+      item.className = 'category-item';
+      item.textContent = cat.strCategory;
+      item.addEventListener('click', () => {
+        getMealsByCategory(cat.strCategory);
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        menuToggle.textContent = "☰";
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+      });
+      sidebarCategories.appendChild(item);
+    });
+  })
+  .catch(err => console.error('Error fetching categories:', err));
+
+      // Fetch meals by category
+      function getMealsByCategory(category) {
+        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+          .then(res => res.json())
+          .then(data => {
+            mealDetails.classList.remove('active');
+            mealsHeader.style.display = 'block';
+            mealsHeader.textContent = `MEALS - ${category}`;
+            mealsGrid.innerHTML = '';
+            data.meals.forEach(meal => {
+              const mealCard = document.createElement('div');
+              mealCard.className = 'meal-card';
+              mealCard.innerHTML = `
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <div class="meal-title">${meal.strMeal}</div>
+              `;
+              mealCard.onclick = () => showMealDetails(meal.idMeal);
+              mealsGrid.appendChild(mealCard);
+            });
+          });
+      }
+
+      // Search meals
+      searchBtn.onclick = () => {
+        const value = searchInput.value.trim();
+        if (value.length === 0) return;
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`)
+          .then(res => res.json())
+          .then(data => {
+            mealDetails.classList.remove('active');
+            mealsHeader.style.display = 'block';
+            mealsHeader.textContent = `Search Results for "${value}"`;
+            mealsGrid.innerHTML = '';
+            if (data.meals) {
+              data.meals.forEach(meal => {
+                const mealCard = document.createElement('div');
+                mealCard.className = 'meal-card';
+                mealCard.innerHTML = `
+                  <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                  <div class="meal-title">${meal.strMeal}</div>
+                `;
+                mealCard.onclick = () => showMealDetails(meal.idMeal);
+                mealsGrid.appendChild(mealCard);
+              });
+            } else {
+              mealsGrid.innerHTML = '<p>No meals found.</p>';
+            }
+          });
+      };
+
+      // Show meal details
+      function showMealDetails(id) {
+        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+          .then(res => res.json())
+          .then(data => {
+            const meal = data.meals[0];
+            mealsHeader.style.display = 'none';
+            mealsGrid.innerHTML = '';
+            mealDetails.innerHTML = `
+              <h2>${meal.strMeal}</h2>
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+              <p><strong>Category:</strong> ${meal.strCategory} | <strong>Cuisine:</strong> ${meal.strArea}</p>
+              <p>${meal.strInstructions}</p>
+              <h3>Ingredients</h3>
+              <table>
+                <tbody>
+                  ${
+                    Array.from({length: 20}).map((_,i) => {
+                      const ingredient = meal['strIngredient' + (i+1)];
+                      const measure = meal['strMeasure' + (i+1)];
+                      if (ingredient && ingredient.trim() && measure && measure.trim()) {
+                        return `<tr><td>${ingredient}</td><td>${measure}</td></tr>`;
+                      }
+                      return '';
+                    }).join('')
+                  }
+                </tbody>
+              </table>
+              <button id="closeDetails">Close</button>
+            `;
+            mealDetails.classList.add('active');
+            document.getElementById('closeDetails').onclick = () => mealDetails.classList.remove('active');
+          });
+      }
+    });
+// <-- Add this line to properly close the DOMContentLoaded event listener
+  </script>
 </body>
 </html>
