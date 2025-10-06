@@ -5,37 +5,45 @@
       color: #2d3436;
     }
     /* Header */
-    header nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background:orangered;
-      color: #222;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: bold;
-    }
-    .menu-icon {
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: orangered;
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+}
+
+.logo i {
+  font-size: 1.2rem;
+}
+
+.menu-icon {
   font-size: 24px;
   cursor: pointer;
   color: white;
-  background: transparent; /* no circle */
-  width: auto;
-  height: auto;
-  display: inline-block;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  transition: color 0.3s;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
 }
-    .menu-icon:hover {
-        color: #ffd6a5; /* lighter hover */
-    }
+
+.menu-icon:hover {
+  color: #ffd6a5; /* lighter hover */
+}
+
 
     /* Sidebar */
     .sidebar {
