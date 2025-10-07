@@ -1,200 +1,54 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meal Finder</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <div class="logo" id="homeBtn">
-        <i class="fa-solid fa-utensils" style="color: #fff; margin-right: 8px;"></i>
-        MEAL FINDER
-      </div>
-      <div class="menu-icon" id="menuToggle">
-        <i class="fa-solid fa-bars"></i>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Meal Finder</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="brand" id="homeLink">MealFinder</div>
+      <div class="toggle-btn">&#9776;</div>
     </nav>
-  </header>
 
-  <!-- Sidebar + Overlay -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h3>Categories</h3>
-      <span class="sidebar-close" id="sidebarClose">❌</span>
+    <!-- Off-canvas menu -->
+    <div class="offcanvas" id="navItems">
+      <div class="close-btn" id="closeBtn">&times;</div>
     </div>
-    <div id="sidebarCategories"></div>
-  </div>
-  <div class="overlay" id="overlay"></div>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero" id="heroSection">
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search recipes..." />
-        <button id="searchBtn" class="search-icon"><i class="fas fa-search"></i></button>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Banner -->
+    <div class="container">
+      <div class="flex">
+        <form class="flex" id="submit">
+          <input type="text" id="search" placeholder="Search for meals.." />
+          <button id="searchBtn" class="search-icon"><i class="fas fa-search"></i></button>
+        </form>
       </div>
-      <h1>What are your favorite cuisines?</h1>
-      <p>PERSONALIZE YOUR EXPERIENCE</p>
+      <h3>What are your favourite cuisines?</h3>
+      <p>Personalize your experience</p>
+    </div>
+
+    <!-- Category description and meals -->
+    <div id="result-heading"></div>
+    <div id="meals" class="meals"></div>
+    <div id="single-meal"></div>
+
+    <!-- Categories section -->
+    <section class="catagories">
+      <h1>Categories</h1>
+      <div id="img-catagories"></div>
     </section>
 
-    <!-- Categories Grid -->
-    <section id="categoriesSection">
-      <h2 style="text-align:center;">CATEGORIES</h2>
-      <div id="categoriesGrid" class="grid"></div>
-    </section>
-
-    <!-- Meals Section -->
-    <section id="mealsSection" style="display:none;">
-      <h2 id="mealsTitle" style="text-align:center;"></h2>
-      <div id="mealsGrid" class="grid"></div>
-    </section>
-
-    <!-- Meal Details Section -->
-    <section id="mealDetails" style="display:none;"></section>
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const categoryGrid = document.getElementById('categoriesGrid');
-      const sidebarCategories = document.getElementById('sidebarCategories');
-      const mealsGrid = document.getElementById('mealsGrid');
-      const mealDetails = document.getElementById('mealDetails');
-      const searchInput = document.getElementById('searchInput');
-      const searchBtn = document.getElementById('searchBtn');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      const sidebarClose = document.getElementById('sidebarClose');
-      const homeBtn = document.getElementById('homeBtn');
-      const heroSection = document.getElementById('heroSection');
-      const categoriesSection = document.getElementById('categoriesSection');
-      const mealsSection = document.getElementById('mealsSection');
-
-      // Sidebar toggle
-      menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-      });
-      overlay.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-      });
-      sidebarClose.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-      });
-
-      // Fetch categories
-      fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-        .then(res => res.json())
-        .then(data => {
-          data.categories.forEach(cat => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-              <img src="${cat.strCategoryThumb}" alt="${cat.strCategory}">
-              <div class="category-title">${cat.strCategory}</div>`;
-            card.onclick = () => getMealsByCategory(cat.strCategory);
-            categoryGrid.appendChild(card);
-
-            const item = document.createElement('div');
-            item.className = 'category-item';
-            item.textContent = cat.strCategory;
-            item.onclick = () => {
-              getMealsByCategory(cat.strCategory);
-              sidebar.classList.remove('active');
-              overlay.classList.remove('active');
-            };
-            sidebarCategories.appendChild(item);
-          });
-        });
-
-      // Fetch meals by category
-      function getMealsByCategory(category) {
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-          .then(res => res.json())
-          .then(data => {
-            showMeals(category, data.meals);
-          });
-      }
-
-      // Search meals
-      searchBtn.onclick = () => {
-        const value = searchInput.value.trim();
-        if (!value) return;
-        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.meals) {
-              showMeals(`Search Results for "${value}"`, data.meals);
-            } else {
-              showMeals(`No results for "${value}"`, []);
-            }
-          });
-      };
-
-      function showMeals(title, meals) {
-        heroSection.style.display = 'block';
-        categoriesSection.style.display = 'none';
-        mealDetails.style.display = 'none';
-        mealsSection.style.display = 'block';
-        document.getElementById('mealsTitle').textContent = title;
-        mealsGrid.innerHTML = '';
-
-        if (!meals || meals.length === 0) {
-          mealsGrid.innerHTML = '<p style="text-align:center;">No meals found.</p>';
-          return;
-        }
-
-        meals.forEach(meal => {
-          const mealCard = document.createElement('div');
-          mealCard.className = 'meal-card';
-          mealCard.innerHTML = `
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-            <div class="meal-title">${meal.strMeal}</div>`;
-          mealCard.onclick = () => showMealDetails(meal.idMeal);
-          mealsGrid.appendChild(mealCard);
-        });
-      }
-
-      function showMealDetails(id) {
-        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-          .then(res => res.json())
-          .then(data => {
-            const meal = data.meals[0];
-            mealsSection.style.display = 'none';
-            mealDetails.style.display = 'block';
-            mealDetails.innerHTML = `
-              <h2>${meal.strMeal}</h2>
-              <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-              <p><strong>Category:</strong> ${meal.strCategory} | <strong>Cuisine:</strong> ${meal.strArea}</p>
-              <p>${meal.strInstructions}</p>
-              <h3>Ingredients</h3>
-              <table><tbody>${
-                Array.from({length: 20}).map((_, i) => {
-                  const ing = meal['strIngredient' + (i+1)];
-                  const meas = meal['strMeasure' + (i+1)];
-                  if (ing && ing.trim()) return `<tr><td>${ing}</td><td>${meas}</td></tr>`;
-                  return '';
-                }).join('')
-              }</tbody></table>`;
-            mealDetails.scrollIntoView({behavior:'smooth'});
-          });
-      }
-
-      // Click header to go back home
-      homeBtn.onclick = () => {
-        heroSection.style.display = 'block';
-        categoriesSection.style.display = 'block';
-        mealsSection.style.display = 'none';
-        mealDetails.style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
