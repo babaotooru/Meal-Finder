@@ -18,13 +18,15 @@ body{
   position: relative;
   z-index: 1000;
 }
-
 .brand {
+  display: flex;
+  align-items: center; /* vertically centers the icon and text */
   font-size: 1.5rem;
-  cursor: default;
-  font-weight:bold;
+  font-weight: bold;
   text-transform: capitalize;
+  color: white;
 }
+
 .toggle-btn {
   font-size: 1.5rem;
   cursor: pointer;
@@ -120,10 +122,14 @@ input{
     border-radius: 30px;
     text-align: center;
 }
+#search{
+    width:300px;
+    height: 42px;
+}
 .search-icon {
       position: absolute;
-      left: 200px;
-      top: 50%;
+      left: 57%;
+      top: 26.4%;
       transform: translateY(-50%);
       background: orangered;
       border: none;
