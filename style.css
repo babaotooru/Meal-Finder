@@ -260,3 +260,472 @@ h3{
     padding: 40px 60px;
   }
 }
+
+.catagories {
+  
+  padding: 30px;
+  font-family: inherit;
+  background: #d6d4d4;
+  margin-top: 50px;
+}
+
+.catagories h1 {
+  position: relative;
+  display: inline-block; /* underline relative to text width */
+  color: #333;
+  margin:40px 0;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.catagories h1::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;        /* negative value creates gap below text */
+  left: 0;
+  width: 50%;          /* half of the heading text */
+  height: 5px;         /* thickness of line */
+  background-color: #ff6347; /* line color */
+  border-radius: 2px;
+}
+
+#img-catagories {
+  display: grid;
+  gap: 20px;
+  padding: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 4 per row on large screens */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  #img-catagories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  #img-catagories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  #img-catagories {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card styling */
+.cat-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+}
+
+.cat-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 200px; /* increased height */
+  transition: transform 0.3s ease;
+}
+
+.cat-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Category name overlay */
+.cat-name {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgb(236, 109, 63);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.cat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* Small screen adjustments */
+@media (max-width: 600px) {
+  .cat-card img {
+    height: 160px;
+  }
+  
+  .cat-name {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+  
+  .catagories h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Meals heading */
+.meals-heading {
+  position: relative;
+  display: inline-block;
+  margin-left: 30px;
+  margin-bottom: 10px;
+  margin-top:20px;
+  font-size: 2rem;
+  color: #333;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.search-term{
+  margin:20px 0 20px 30px;  
+}
+
+.meals-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;      /* gap between text & line */
+  left: 0;
+  width: 75%;        /* half width of heading text */
+  height: 4px;
+  background-color: #ff6347; /* custom color */
+  border-radius: 2px;
+}
+
+/* Meals grid */
+.meals {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 per row on large screens */
+  gap: 15px;
+  margin: 20px 30px;
+}
+
+/* modification*/
+
+/* Meal card */
+/* Meal card */
+.meal {
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Meal image */
+.meal img {
+  width: 100%;
+  height: 200px; /* adjust as needed */
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  margin-bottom: 10px; /* space between image and name */
+}
+
+/* Meal name below image */
+.meal-info {
+  position: static;  /* remove absolute positioning */
+  background: none;  /* no overlay */
+  opacity: 1;        /* always visible */
+  padding: 0;
+}
+
+.meal-info h3 {
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+
+/* modification*/
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .meals {
+    grid-template-columns: repeat(4, 1fr); /* 4 per row */
+  }
+}
+
+@media (max-width: 900px) {
+  .meals {
+    grid-template-columns: repeat(3, 1fr); /* 3 per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .meals {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  }
+}
+
+@media (max-width: 400px) {
+  .meals {
+    grid-template-columns: 1fr; /* 1 per row */
+  }
+}
+
+/* indivisual catagory */
+
+/* Category description box adjustments */
+#result-heading .description {
+  border: 2px solid #ff6347;
+  margin: 20px 30px;      /* reduce top/bottom margin for tighter spacing */
+  padding: 20px 25px;
+  background: #fdfafa;
+  border-radius: 5px;     /* rounded corners for a modern look */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* subtle shadow for depth */
+}
+
+/* Category name inside description box */
+.description h2 {
+  color: #ff6347;
+  font-size: 24px;
+  margin-bottom: 10px;    /* space below the heading */
+  text-transform: none;
+  letter-spacing: 1px;
+}
+
+/* Category description text */
+.description p {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+  text-transform: none;
+  
+}
+
+/* Meals heading below the category box */
+#result-heading h3 {
+  position: relative;
+  display: inline-block;
+  color: #333;
+  margin: 20px 0 15px 30px; /* reduced top margin to visually connect with box */
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  line-height: 1.2;
+}
+
+#result-heading h3::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;      /* closer to text */
+  left: 0;
+  width: 70%;
+  height: 4px;
+  background-color: #ff6347;
+  border-radius: 2px;
+}
+
+/* Responsive adjustments for mobile/tablets */
+@media (max-width: 768px) {
+  #result-heading .description {
+    margin: 15px 20px;
+    padding: 15px 20px;
+  }
+
+  .description h2 {
+    font-size: 20px;
+  }
+
+  .description p {
+    font-size: 14px;
+  }
+
+  #result-heading h3 {
+    margin-left: 20px;
+    font-size: 18px;
+  }
+
+  #result-heading h3::after {
+    bottom: -6px;
+    height: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  #result-heading .description {
+    margin: 10px 15px;
+    padding: 12px 15px;
+  }
+
+  .description h2 {
+    font-size: 18px;
+  }
+
+  .description p {
+    font-size: 13px;
+  }
+
+  #result-heading h3 {
+    margin-left: 15px;
+    font-size: 16px;
+  }
+
+  #result-heading h3::after {
+    bottom: -5px;
+    height: 3px;
+  }
+}
+
+/*single meal*/
+.single-meal-detail{
+  margin:100px;
+}
+.single-meal-detail h1{
+  margin-bottom: 30px;
+  background-color: orangered;
+  color:white;
+  padding:10px 0 10px 20px;
+  border: 1px solid orange;
+  font-size:20px;
+  font-weight: lighter;
+  text-transform: uppercase; 
+}
+.single-meal-detail h1 i{
+  margin-right: 10px;
+  font-size: 20px;
+}
+.single-meal-detail h3{
+ text-transform: uppercase;
+ letter-spacing: 5px;
+ margin-bottom: 30px;
+}
+.single-detail{
+  background: white;
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
+  border-radius: 5px;
+  padding:10px;
+}
+.img-ing{
+  display: flex; 
+}
+.img-ing .single-img{
+  width:400px;
+  height:500px;
+  padding:30px;
+  margin-right: 50px;
+  margin-left:50px;
+
+}
+.meal-info-details{
+  display: block;
+}
+.strMeal{
+  color:rgb(237, 123, 82);
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  border-bottom: 2px solid rgb(237, 123, 82);
+}
+.meal-info p strong{
+  color:black;
+}
+.data{
+  color:#777; 
+  font-weight: lighter;
+}
+.ingredients {
+  background-color: #e26022;
+  color: white;
+  padding: 20px 25px;
+  border-radius: 6px;
+  width: 600px; /* adjust if you want wider/narrower */
+  font-family: Arial, sans-serif;
+  margin-top:15px;
+}
+
+.ingredients h2 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+/* 3-column grid + reset counter */
+.ingredients ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 10px 15px;
+  padding: 0;
+  margin: 0;
+  counter-reset: step; /* start numbering */
+}
+
+/* each item: number circle + text */
+.ingredients li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  padding: 3px 0;
+  word-break: break-word;
+}
+
+/* the small numbered blue circle (auto-generated) */
+.ingredients li::before {
+  content: counter(step);
+  counter-increment: step;
+  background-color: #1cb4c9;
+  color: white;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 13px;
+  flex: 0 0 22px;
+}
+.measures {
+  margin: 50px;
+  border: 1px solid #ddd;       /* light border around the box */
+  padding: 15px 20px;           /* inner spacing */
+  border-radius: 8px;           /* rounded corners */
+  width: 90%;          /* optional width */
+  background-color: #fff;       /* white background */
+  display: inline-block;        /* shrink to content width */
+}
+
+.measures h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.measures ul {
+  list-style: none;             /* remove default bullets */
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 8px 20px;                /* row-gap and column-gap */
+}
+
+.measures ul li {
+  position: relative;
+  padding-left: 20px;           /* space for the icon */
+  font-size: 14px;
+  color: #555;
+}
+
+/* Small icon before each item (like the image) */
+.measures ul li::before {
+  content: "🧂";               /* you can replace with any icon */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+ul{
+  list-style: none;
+}
