@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Single Meal</title>
+  </head>
+  <body>
+    <!-- Navbar (same as Home/Category) -->
+    <nav class="navbar">
+      <div class="brand" id="homeLink">MealFinder</div>
+      <div class="toggle-btn">&#9776;</div>
+    </nav>
+
+    <!-- Off-canvas menu -->
+    <div class="offcanvas" id="navItems">
+      <div class="close-btn" id="closeBtn">&times;</div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Banner (same as Home/Category) -->
+    <div class="container">
+      <div class="flex">
+        <form class="flex" id="submit">
+          <input type="text" id="search" placeholder="Search for meals.." />
+          <button id="search-btn"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+      <h3>What are your favourite cuisines?</h3>
+      <p>Personalize your experience</p>
+    </div>
+
+    <!-- Single Meal Section -->
+    <div id="single-meal" class="single-meal-detail"></div>
+
+    <!-- Single meal JS -->
+    <script src="singlemeal.js"></script>
+  </body>
+</html>
