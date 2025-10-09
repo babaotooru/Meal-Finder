@@ -831,55 +831,12 @@ ul{
     letter-spacing: 2px;
     margin-bottom: 20px;
   }
- @media (max-width: 320px) {
-  #search{
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-  }
+  /*mobile 320px*/
   .search-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 0.9rem;
-    top: -35px;
-    left: 120px;
-  }
-}
-#search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative; /* needed for absolute child */
-}
-
-.search-icon {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  font-size: 1rem;
-  top: 190px;
-  left: 300px;
-  transition: all 0.3s ease; /* smooth movement */
-}
-
-/* Example: for medium mobiles */
-@media (min-width: 321px) and (max-width: 375px) {
-  .search-icon {
-    top: 40px; /* change this and watch it move */
-    left: 40px;
-  }
-}
-
-
-/* For large mobiles (376px–425px) */
-@media (min-width: 376px) and (max-width: 425px) {
-  .search-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 1.05rem;
-    top: 12px;
-    left: 12px;
-  }
-}
+      width: 35px;
+      height: 35px;
+      font-size: 0.9rem;
+       left:120px;
+      top: -35px;
+    }
 }
