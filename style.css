@@ -735,6 +735,35 @@ h3{
 ul{
   list-style: none;
 }
+.instructions input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid orangered;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  background-color: white;
+}
+
+/* Checked state — box + tick both orangered */
+.instructions input[type="checkbox"]:checked {
+  background-color: white;
+  border-color: orangered;
+}
+
+/* Tick mark */
+.instructions input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: orangered; /* tick color */
+  font-size: 13px;
+  font-weight: bold;
+  position: absolute;
+  top: -1px;
+  left: 2px;
+}
+
+
 /* laptop 1024*/
 @media (min-width: 769px) and (max-width: 1024px) {
   .single-meal-detail {

@@ -123,7 +123,8 @@ function displaySingleMeal(meal) {
 
     <div class="instructions">
       <h2>Instructions</h2>
-      <ul>${instructions.map(instr => `<li><input type="checkbox"><label>${instr.trim()}</label></li>`).join("")}</ul>
+      <ul>${instructions.map(instr => `<li><input type="checkbox" checked><label>${instr.trim()}</label></li>`).join("")}</ul>
+
     </div>
     </section>
   `;
