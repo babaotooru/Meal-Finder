@@ -787,9 +787,24 @@ ul{
 }
 
 /* Mobile: 480px and below */
-@media (max-width: 480px) {
+@media (max-width: 425px) {
   .single-meal-detail {
     margin: 20px 10px;
+  }
+  
+  #search {
+    width: 220px;
+    height: 38px;
+    font-size: 13px;
+    padding-right: 40px;
+  }
+
+  .search-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    left: 130px;
+    top: -32px;
   }
 
   .img-ing .single-img {
@@ -830,87 +845,48 @@ ul{
     font-size: 16px;
     letter-spacing: 2px;
     margin-bottom: 20px;
-  }
-  
-}
-#search {
-  position: relative; /* needed for search-icon to move */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 80px; /* to stay below navbar */
+  } 
 }
 
-/* Base search icon */
-.search-icon {
-  position: absolute;
-  top: 230px;
-  left: 300px;
-  transform: translateY(-50%);
-  background: orangered;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-}
 
-/* Small mobile: 375px */
+
 @media (max-width: 375px) {
-  .search-icon {
-    top: 50%;   /* adjust */
-    right: 5px; /* adjust */
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
+  .single-detail {
+    margin: 10px;
   }
 
-  #search {
-    width: 270px;
-  }
-
-  .img-ing .single-img {
-    width: 200px;
-    height: 250px;
-  }
-
-  .ingredients, .measures {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .single-detail h1 {
-    font-size: 16px;
-    padding: 6px 0 6px 8px;
-  }
-
-  .single-detail h3 {
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-}
-@media (max-width: 320px) {
-  .search-icon {
-    top: 220px;   /* adjust */
-    left: 280px; /* adjust */
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
+  .search-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
   }
 
   #search {
     width: 220px;
+    height: 38px;
+    font-size: 13px;
+    padding-right: 40px;
+  }
+
+  .search-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    left: 130px;
+    top: -32px;
   }
 
   .img-ing .single-img {
     width: 200px;
     height: 250px;
+    padding: 10px;
+    margin: 10px 0;
   }
 
   .ingredients, .measures {
-    font-size: 13px;
     padding: 8px;
+    font-size: 13px;
   }
 
   .single-detail h1 {
@@ -920,7 +896,7 @@ ul{
 
   .single-detail h3 {
     font-size: 14px;
+    letter-spacing: 1px;
     margin-bottom: 15px;
   }
 }
-
