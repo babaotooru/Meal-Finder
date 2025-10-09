@@ -5,6 +5,51 @@ const navItems = document.getElementById("navItems");
 const overlay = document.getElementById("overlay");
 const closeBtn = document.getElementById("closeBtn");
 const homeLink = document.getElementById("homeLink");
+// Load Navbar items
+async function loadNavItems() {
+  const res = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+  const data = await res.json();
+  data.categories.forEach((cat) => {
+    const a = document.createElement("a");
+    a.href = `category.html?category=${encodeURIComponent(cat.strCategory)}`;
+    a.textContent = cat.strCategory;
+    navItems.appendChild(a);
+  });
+}
+loadNavItems();
+
+// Get category from URL
+const params = new URLSearchParams(window.location.search);
+const categoryName = params.get("category");
+
+// Display meals by category
+async function loadCategoryMeals(catName) {
+  // Fetch category description
+  const catRes = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+  const catData = await catRes.json();
+  const catInfo = catData.categories.find((c) => c.strCategory === catName);
+
+  resultHeading.innerHTML = `
+    <div class="description">
+      <h2>${catName}</h2>
+      <p>${catInfo ? catInfo.strCategoryDescription : ""}</p>
+    </div>
+    <h3>Meals</h3>
+  `;
+
+  // Fetch meals in this category
+  const mealsRes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${catName}`);
+  const mealsData = await mealsRes.json();
+  const meals = mealsData.meals || [];
+
+  // Render meals
+  mealsContainer.innerHTML = meals.map(meal => `
+    <div class="meal" onclick="window.location.href='singlemeal.html?id=${meal.idMeal}'">
+      <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+      <div class="meal-info"><h3>${meal.strMeal}</h3></div>
+    </div>
+  `).join("");
+}
 
 function openMenu() {
   navItems.classList.add("show");
