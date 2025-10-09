@@ -66,9 +66,7 @@ async function loadCategories() {
 }
 loadCategories();
 
-// ======================
 // Search Meals (display results above categories)
-// ======================
 submit.addEventListener("submit", (e) => {
   e.preventDefault();
   const term = search.value.trim();

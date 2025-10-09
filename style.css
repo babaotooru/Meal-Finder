@@ -127,9 +127,9 @@ input{
     height: 42px;
 }
 .search-icon {
-      position: absolute;
-      left: 57%;
-      top: 26.4%;
+      position: relative;
+      left: 2%;
+      top: 48%;
       transform: translateY(-50%);
       background: orangered;
       border: none;
@@ -272,7 +272,7 @@ h3{
   padding: 30px;
   font-family: inherit;
   background: #d6d4d4;
-  margin-top: 50px;
+  margin-top: -40px;
 }
 
 .catagories h1 {
@@ -734,4 +734,101 @@ h3{
 
 ul{
   list-style: none;
+}
+/* laptop 1024*/
+@media (min-width: 769px) and (max-width: 1024px) {
+  .single-meal-detail {
+    margin: 70px 30px;
+  }
+  .ingredients {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+/* Tablet: 768px and below */
+@media (max-width: 768px) {
+  .single-meal-detail {
+    margin: 50px 20px;
+  }
+
+  .img-ing {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img-ing .single-img {
+    width: 350px;
+    height: 350px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .ingredients {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .measures {
+    width: 100%;
+    margin: 30px 0;
+    padding: 12px 15px;
+  }
+
+  .ingredients ul {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns instead of 3 */
+    gap: 8px 10px;
+  }
+
+  .measures ul {
+    grid-template-columns: 1fr; /* 1 column for narrow screens */
+    gap: 6px 0;
+  }
+}
+
+/* Mobile: 480px and below */
+@media (max-width: 480px) {
+  .single-meal-detail {
+    margin: 20px 10px;
+  }
+
+  .img-ing .single-img {
+    width: 250px;
+    height: 300px;
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .ingredients {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .ingredients ul {
+    grid-template-columns: 1fr; /* single column for mobile */
+    gap: 5px 0;
+  }
+
+  .measures {
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+  }
+
+  .measures ul {
+    grid-template-columns: 1fr; /* single column */
+    gap: 4px 0;
+  }
+  
+  .single-meal-detail h1 {
+    font-size: 18px;
+    padding: 8px 0 8px 10px;
+  }
+
+  .single-meal-detail h3 {
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
 }
