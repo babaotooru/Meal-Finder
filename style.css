@@ -845,17 +845,32 @@ ul{
     left: 120px;
   }
 }
+#search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative; /* needed for absolute child */
+}
 
-/* For medium mobiles (321px–375px) */
+.search-icon {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  font-size: 1rem;
+  top: 190px;
+  left: 300px;
+  transition: all 0.3s ease; /* smooth movement */
+}
+
+/* Example: for medium mobiles */
 @media (min-width: 321px) and (max-width: 375px) {
   .search-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-    top: 30px;
-    left: 3px;
+    top: 40px; /* change this and watch it move */
+    left: 40px;
   }
 }
+
 
 /* For large mobiles (376px–425px) */
 @media (min-width: 376px) and (max-width: 425px) {
